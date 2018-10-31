@@ -29,25 +29,27 @@ void crearArchivoIndices() {
 	clientesFile.open("Clientes.txt");
 	while (!clientesFile.eof()) {
 		getline(clientesFile, datosBuffer);
-		string cedula,nombre;
-		bool bandera = false;
-		for (int i = 0; i < datosBuffer.length(); i++) {
-			if (datosBuffer[i] != *";") {
-				if (!bandera)
-					cedula.operator+=(datosBuffer[i]);
+		if (datosBuffer.back() != '1') {
+			string cedula, nombre;
+			bool bandera = false;
+			for (int i = 0; i < datosBuffer.length(); i++) {
+				if (datosBuffer[i] != *";") {
+					if (!bandera)
+						cedula.operator+=(datosBuffer[i]);
+					else
+						nombre.operator+=(datosBuffer[i]);
+				}
 				else
-					nombre.operator+=(datosBuffer[i]);
+					bandera = true;
 			}
-			else
-				bandera = true;
-		}
-		if (cedulas.buscar(stoi(cedula))) {
-			cout << "CEDULA REPETIDA: " << cedula << endl;
-		}
-		else {
-			cedulas.InsertarFinal(stoi(cedula));
-			indicesFile << indice << ";" << cedula << ";" << nombre << endl;
-			indice++;
+			if (cedulas.buscar(stoi(cedula))) {
+				cout << "CEDULA REPETIDA: " << cedula << endl;
+			}
+			else {
+				cedulas.InsertarFinal(stoi(cedula));
+				indicesFile << indice << ";" << cedula << ";" << nombre << endl;
+				indice++;
+			}
 		}
 	}
 	cedulas.~lista();
