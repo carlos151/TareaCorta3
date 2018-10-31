@@ -6,7 +6,7 @@
 
 void NodoBinario::InsertaBinario(int indice,string cedula)
 {
-    if(cedula < this->cedula){
+    if(stoi(cedula) < stoi(this->cedula)){
         if(Hizq==NULL){
             Hizq = new NodoBinario(indice,cedula);
         }else{
@@ -89,10 +89,10 @@ void Binario::PostordenI(){
 int Binario::buscar(string cedula) {
 	NodoBinario *actual = raiz;
 	while (actual != NULL) {
-		if (actual->cedula == cedula) {
+		if (stoi(actual->cedula) == stoi(cedula)) {
 			return actual->indice;
 		}
-		else if (actual->cedula < cedula) {
+		else if (stoi(actual->cedula) < stoi(cedula)) {
 			actual = actual->Hder;
 		}
 		else {
